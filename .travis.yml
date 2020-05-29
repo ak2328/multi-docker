@@ -1,27 +1,22 @@
 sudo: required
-
+language: node_js
+node_js: 
+  - "8"
 services:
-     - docker 
-
-
+  - docker
 before_install:
-  
-        - docker build -t react -f ./client/Dockerfile.dev ./client
-
+  - docker build -t peelmicro/test-client -f ./client/Dockerfile.dev ./client
 script:
-       - docker run -e CI=true react npm test
-
-
+  - docker run -e CI=true peelmicro/test-client npm run test 
 after_success:
-
-    - docker build -t multi-client ./client
-    - docker build -t multi-nginx ./nginx
-    - docker build -t multi-server ./server
-    - docker build -t multi-client ./client
-    - docker build -t multi-worker ./worker
-    - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
-    - docker push multi-client
-    - docker push multi-nginx
-    - docker push multi-server
-    - docker push multi-worker
-
+  - docker build -t peelmicro/multi-client ./client
+  - docker build -t peelmicro/multi-nginx ./nginx
+  - docker build -t peelmicro/multi-server ./server
+  - docker build -t peelmicro/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push peelmicro/multi-client
+  - docker push peelmicro/multi-nginx
+  - docker push peelmicro/multi-server
+  - docker push peelmicro/multi-workeri
