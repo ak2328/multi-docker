@@ -6,10 +6,10 @@ services:
 
 before_install:
 
-        - docker build -t react -f ./client/Dockerfile.dev ./client
+       - docker build -t react -f ./client/Dockerfile.dev ./client
 
 script:
-       - docker run -e CI=true react npm run build
+       - docker run -e CI=true react npm run test
 
 
 after_success:
