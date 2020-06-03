@@ -6,21 +6,36 @@
       "image": "amit2328/multi-client",
       "hostname": "client",
       "essential": false,
-      "memory": 128
+      "memory": 128,
+      "command": [
+            "tail",
+            "-f",
+            "/bin/bash"
+          ]
     },
     {
       "name": "server",
       "image": "amit2328/multi-server",
       "hostname": "api",
       "essential": false,
-      "memory": 128
+      "memory": 128,
+      "command": [
+            "tail",
+            "-f",
+            "/bin/bash"
+          ]
     },
     {
       "name": "worker",
       "image": "amit2328/multi-worker",
       "hostname": "worker",
       "essential": false,
-      "memory": 128
+      "memory": 128,
+      "command": [
+            "tail",
+            "-f",
+            "/bin/bash"
+          ]
     },
     {
       "name": "nginx",
@@ -34,7 +49,12 @@
         }
       ],
       "links": ["client","server"],
-      "memory": 128
+      "memory": 128,
+      "command": [
+            "tail",
+            "-f",
+            "/bin/bash"
+          ]
     }
   ]
 }
